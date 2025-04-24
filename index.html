@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bilinear Transformation Game</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body id="body" class="bg-gray-900 text-white min-h-screen p-6">
+  <audio id="win-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-video-game-win-2016.mp3"></audio>
+
+  <div class="max-w-4xl mx-auto bg-gray-800 p-6 rounded-2xl shadow-xl">
+    <div class="flex justify-between items-center">
+      <h1 class="text-2xl font-bold">🎯 Bilinear Transformation Game</h1>
+      <label class="flex items-center cursor-pointer space-x-2">
+        <span class="text-sm">🌙</span>
+        <input type="checkbox" id="darkToggle" class="hidden" onchange="toggleDarkMode()">
+        <span class="w-10 h-5 bg-gray-600 rounded-full flex items-center px-1">
+          <span id="toggle-thumb" class="bg-white w-4 h-4 rounded-full transition-transform"></span>
+        </span>
+      </label>
+    </div>
+
+    <!-- Game Info -->
+    <div class="flex justify-between text-sm text-gray-400 mt-2">
+      <div>Level: <span id="level">1</span></div>
+      <div>Score: <span id="score">0</span></div>
+      <div>Time left: <span id="timer">30</span>s</div>
+    </div>
+
+    <!-- Input Boxes -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
+      <div><label class="text-sm">a:</label><input type="number" id="a" class="input-box" /></div>
+      <div><label class="text-sm">b:</label><input type="number" id="b" class="input-box" /></div>
+      <div><label class="text-sm">c:</label><input type="number" id="c" class="input-box" /></div>
+      <div><label class="text-sm">d:</label><input type="number" id="d" class="input-box" /></div>
+    </div>
+
+    <!-- Target Display -->
+    <div class="text-sm mt-2">
+      Target: f(<strong id="z-value"></strong>) = <strong id="target-value"></strong>
+    </div>
+
+    <!-- Buttons -->
+    <div class="space-y-2 mt-2">
+      <button onclick="checkTransformation()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded w-full">Check</button>
+      <button onclick="nextLevel()" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded w-full">Next Level</button>
+      <button onclick="resetGame()" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded w-full">Restart Game</button>
+    </div>
+
+    <!-- Difficulty Dropdown -->
+    <div class="mt-4">
+      <label class="block text-sm mb-1">Difficulty:</label>
+      <select id="difficulty" onchange="resetGame()" class="w-full p-2 rounded bg-gray-700 text-white">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+    </div>
+
+    <!-- Result Message -->
+    <div id="result" class="text-center text-lg font-semibold mt-4"></div>
+
+    <!-- Chart -->
+    <canvas id="graph" class="w-full h-64 mt-6"></canvas>
+
+    <!-- Leaderboard -->
+    <div class="mt-6">
+      <h2 class="text-lg font-bold mb-2">🏆 Leaderboard</h2>
+      <ul id="leaderboard" class="text-sm space-y-1"></ul>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
+
